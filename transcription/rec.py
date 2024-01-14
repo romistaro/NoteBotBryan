@@ -2,7 +2,8 @@ import pyaudio
 import wave
 from pydub import AudioSegment
 import threading
-from stt import stt
+
+from transcription.stt import stt
 
 # Set up parameters for recording
 FORMAT = pyaudio.paInt16
@@ -13,7 +14,13 @@ RECORD_SECONDS = 7
 FILENAMES = ['f1.wav', 'f2.wav']
 
 audio = pyaudio.PyAudio()
-
+should_loop=False
+def start_loop():
+    file_index = 0
+    while should_loop:
+        threading.Thread(target=record_and_transcribe, args=(file_index,)).start()
+        file_index = 1 - file_index
+        threading.Event().wait(RECORD_SECONDS)
 # Function to handle the recording and transcription
 def record_and_transcribe(file_index):
     # Record
@@ -37,14 +44,21 @@ def record_and_transcribe(file_index):
     # Transcribe
     stt(filename)
 
-try:
-    file_index = 0
-    while True:
-        threading.Thread(target=record_and_transcribe, args=(file_index,)).start()
-        file_index = 1 - file_index  
-        threading.Event().wait(RECORD_SECONDS)
 
-except KeyboardInterrupt:
-    print("Recording stopped by user.")
-finally:
-    audio.terminate()
+
+def start_mic():
+    global should_loop
+    should_loop=True
+    threading.Thread(target=start_loop).start()
+
+
+
+
+
+def stop_mic():
+    global should_loop
+    should_loop=False
+
+
+if __name__ == "__main__":
+    start_loop()

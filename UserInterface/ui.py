@@ -1,8 +1,11 @@
 import random
 import os
+import threading
 from pathlib import Path
 import pygame
+import markdown
 from pygame_markdown import MarkdownRenderer
+from transcription.rec import record_and_transcribe, start_mic, stop_mic
 
 dir_path = Path(os.path.dirname(os.path.realpath(__file__)))
 
@@ -18,7 +21,8 @@ clock = pygame.time.Clock()
 running = True
 # Creating and configuring the MarkdownRenderer.
 md = MarkdownRenderer()
-md.set_markdown(mdfile_path=dir_path / "test.md")
+md.set_markdown(mdfile_path="../transcription/output.md")
+
 md.set_scroll_step(19.35)
 magic_height = 702.36
 # md.set_markdown_from_string(md_string)  # Alternatively directly from a string.
@@ -53,8 +57,19 @@ def rot_center(image, angle, x, y):
 
 
 pencil_x = 15
+
+to_expand=[]
+def click_recording():
+    global recording
+    recording = not recording
+    to_expand.append(pygame.Rect(267, 17, 50, 50))
+    if recording:
+        start_mic()
+    else:
+        stop_mic()
+
+
 while running:
-    clicked = False
     pygame_events = pygame.event.get()
     mouse_x, mouse_y = pygame.mouse.get_pos()
     mouse_pressed = pygame.mouse.get_pressed()
@@ -63,19 +78,20 @@ while running:
     for event in pygame_events:
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type==pygame.MOUSEBUTTONDOWN:
             if hovering_start():
-                clicked = True
-                recording = not recording
+                click_recording()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                click_recording()
 
     screen.blit(bg, (0, 0))
     md.display(pygame_events, mouse_x, mouse_y, mouse_pressed)
     screen.blit(shape_surf, pygame.Rect(0, 0, 564, 720))
     button_colour = (17, 40, 60)
     if hovering_start():
-        button_colour = tuple(max(0, x - 10) for x in button_colour)
-    if clicked:
-        button_colour = tuple(max(0, x - 20) for x in button_colour)
+        button_colour = tuple(max(0,x-10) for x in button_colour)
+
     pygame.draw.rect(screen, button_colour, (100, 17, 384, 50), border_radius=25)
     screen.blit(startText if not recording else stopText, (100 + 112, 20 + 10))
 
@@ -101,10 +117,18 @@ while running:
             if pencil_x > 40:
                 pencil_x = 15
 
+    for rect in to_expand:
+        expand_surf = pygame.Surface(rect.size, pygame.SRCALPHA)
+        pygame.draw.rect(expand_surf, (0,0,0,100), expand_surf.get_rect(), border_radius=25)
+        screen.blit(expand_surf, rect)
+        rect.width+=44
+        rect.x-=22
+        if rect.width > 384:
+            to_expand.remove(rect)
     screen.blit(small_icon, (7, 10))
     screen.blit(rotated_pencil, new_rect)
     pygame.display.flip()
-    md.set_markdown(mdfile_path=dir_path / "test.md")
+    md.set_markdown(mdfile_path="../transcription/output.md")
     frame_count += 1
     clock.tick(60)
 
