@@ -2,7 +2,7 @@
 
 Your friendly note taking assistant
 
-AI Assistant             |  Note Taker
+AI Assistant             |  Demonstration
 :-------------------------:|:-------------------------:
 ![elbowLogo](https://github.com/romistaro/Elbowpartner/assets/62809012/03ce17da-8cae-4389-ad9e-a072bedd28d6)  |  ![demo](https://github.com/romistaro/Elbowpartner/assets/62809012/153f93f0-3192-46ca-8f22-349f2d961aae)
 
