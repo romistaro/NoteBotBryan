@@ -2,7 +2,8 @@ from openai import OpenAI
 import os
 
 
-client = OpenAI(api_key="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")
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+
 
 
 def stt(filename):
