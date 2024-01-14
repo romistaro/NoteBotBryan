@@ -34,7 +34,7 @@ md.set_area(
 md.set_line_gaps(
     gap_line=0, gap_paragraph=19.35
 )  #! IMPORTANT: make sure gap_line = 0, gap_paragraph = 19.35
-font40 = pygame.font.SysFont("Lato", 40)
+font40 = pygame.font.SysFont("Ariel", 40)
 but_text_colour = (223, 229, 232)
 
 startText = font40.render("Start recording", True, but_text_colour)
@@ -55,8 +55,11 @@ def rot_center(image, angle, x, y):
 
     return rotated_image, new_rect
 
-
 pencil_x = 15
+
+open("../transcription/transcript.txt", "w").write("")
+open("../transcription/output.md", "w").write("")
+
 
 to_expand=[]
 def click_recording():
@@ -128,6 +131,7 @@ while running:
     screen.blit(small_icon, (7, 10))
     screen.blit(rotated_pencil, new_rect)
     pygame.display.flip()
+    temp_md = md
     md.set_markdown(mdfile_path="../transcription/output.md")
     frame_count += 1
     clock.tick(60)

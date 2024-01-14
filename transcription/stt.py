@@ -1,9 +1,8 @@
 from pathlib import Path
 
 from openai import OpenAI
-from FineTuning.test import gptPrompt
+from transcription.test import gptPrompt
 import os
-
 
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 

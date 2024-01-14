@@ -14,12 +14,14 @@ def render_list(self, block: str, block_type: str, y: int, ordered: bool) -> int
     x = start_of_line_x
 
     # Cleanup
-    block = block.strip("\n").replace("<li>", "").replace("</li>", "")
+    block = block.strip("\n").replace("<li>", "").replace("</li>", "").replace("<p>", "").replace("</p>", "")
     code_flag = False
     bold_flag = False
     italic_flag = False
     position = None
     for i, item in enumerate(block.split("\n")):
+        if item == "":
+            continue
         if ordered:
             item = "    " + str(i + 1) + ". " + item
         else:
@@ -50,7 +52,7 @@ def render_list(self, block: str, block_type: str, y: int, ordered: bool) -> int
             else:
                 surface = self.get_surface(word, block_type, bold_flag, italic_flag)
 
-            if not (x + surface.get_width() < self.x + self.w):  # new line necessary
+            if not (x + surface.get_width() < self.w):  # new line necessary
                 y = y + prev_text_height + self.gap_line
                 if ordered:
                     extra_width = self.get_surface(
