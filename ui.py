@@ -13,8 +13,8 @@ md.set_markdown(mdfile_path="test.md")
 # md.set_markdown_from_string(md_string)  # Alternatively directly from a string.
 shape_surf = pygame.Surface((564 - 90, 720 - 80), pygame.SRCALPHA)
 
-md.set_area(surface=shape_surf, offset_x=85, offset_y=70, width=564-90, height=720-80)
-md.set_line_gaps(gap_line=0, gap_paragraph=20)
+md.set_area(surface=shape_surf, offset_x=85, offset_y=73, width=564-90, height=720-80)
+md.set_line_gaps(gap_line=0, gap_paragraph=19.35) #! IMPORTANT: make sure gap_line = 0, gap_paragraph = 19.35
 
 while running:
     for event in pygame.event.get():

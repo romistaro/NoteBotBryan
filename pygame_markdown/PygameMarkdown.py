@@ -226,20 +226,20 @@ class MarkdownRenderer:
             block, block_type = self.blocks[i]
             line_position_y = self.render_block(block, block_type, line_position_y)
             line_position_y = line_position_y + self.gap_paragraph
-            if block_type =="h1" and i < len(self.blocks)-1:
-                if self.blocks[i+1][1]=="h2":
-                    line_position_y += 30
-                elif self.blocks[i+1][1]=="h3":
-                    line_position_y += 12.25
-                else:
-                    line_position_y += 20
-            elif block_type =="h2" and i < len(self.blocks)-1:
-                if self.blocks[i+1][1]=="h3":
-                    line_position_y += 12.25
-                else:
-                    line_position_y += 20
-            elif block_type =="h3" and i < len(self.blocks)-1:
-                line_position_y += 20
+            # if block_type =="h1" and i < len(self.blocks)-1:
+            #     if self.blocks[i+1][1]=="h2":
+            #         line_position_y += 30
+            #     elif self.blocks[i+1][1]=="h3":
+            #         line_position_y += 12.25
+            #     else:
+            #         line_position_y += 20
+            # elif block_type =="h2" and i < len(self.blocks)-1:
+            #     if self.blocks[i+1][1]=="h3":
+            #         line_position_y += 12.25
+            #     else:
+            #         line_position_y += 20
+            # elif block_type =="h3" and i < len(self.blocks)-1:
+            #     line_position_y += 20
 
 
 
