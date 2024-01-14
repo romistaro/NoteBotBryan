@@ -72,13 +72,14 @@ def render_text(self, block: str, block_type: str, y: int) -> int:
             y = y + self.gap_paragraph
             x = start_of_line_x
 
-        if block_type == "blockquote":  # draw quote-rectangle in front of text
-            self.draw_quote_rect(
-                y, y + self.get_surface(word, "blockquote").get_height()
-            )
+        if self.is_visible(y) and self.is_visible(y + text_height):
+            if block_type == "blockquote":  # draw quote-rectangle in front of text
+                self.draw_quote_rect(
+                    y, y + self.get_surface(word, "blockquote").get_height()
+                )
 
-        self.draw_code_background(code_flag, word, x, y, position)
-        self.screen.blit(surface, (x, y))
+            self.draw_code_background(code_flag, word, x, y, position)
+            self.screen.blit(surface, (x, y))
 
         # Update x for the next word
         x = x + surface.get_width()
