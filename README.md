@@ -1,4 +1,4 @@
-# Bryan
+# NoteBotBryan
 
 Your friendly note taking assistant
 
