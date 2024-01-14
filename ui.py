@@ -55,6 +55,7 @@ while running:
         if pygame.time.get_ticks() % 1000 < 500:
             pygame.draw.circle(screen, (255,0,0), (100+384+50, 17+25), 25)
     pygame.display.flip()
+    md.set_markdown(mdfile_path="test.md")
     clock.tick(60)
 
 pygame.quit()
