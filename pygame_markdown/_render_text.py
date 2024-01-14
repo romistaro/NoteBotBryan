@@ -8,6 +8,9 @@ def render_text(self, block: str, block_type: str, y: int) -> int:
     :returns: int - y-coordinate after rendering is finished
     """
 
+    # if y == self.y - self.pixel_first_showable and block_type in ("h1", "h2", "h3"):
+    #     y += self.gap_paragraph
+
     H1_OFFSET = 3
     H2_OFFSET = -7
     H3_OFFSET = -16
@@ -69,14 +72,13 @@ def render_text(self, block: str, block_type: str, y: int) -> int:
             y = y + self.gap_paragraph
             x = start_of_line_x
 
-        if self.is_visible(y) and self.is_visible(y + text_height):
-            if block_type == "blockquote":  # draw quote-rectangle in front of text
-                self.draw_quote_rect(
-                    y, y + self.get_surface(word, "blockquote").get_height()
-                )
+        if block_type == "blockquote":  # draw quote-rectangle in front of text
+            self.draw_quote_rect(
+                y, y + self.get_surface(word, "blockquote").get_height()
+            )
 
-            self.draw_code_background(code_flag, word, x, y, position)
-            self.screen.blit(surface, (x, y))
+        self.draw_code_background(code_flag, word, x, y, position)
+        self.screen.blit(surface, (x, y))
 
         # Update x for the next word
         x = x + surface.get_width()
@@ -101,4 +103,5 @@ def render_text(self, block: str, block_type: str, y: int) -> int:
         elif block_type == "h3":
             y += H3_OFFSET
         y += self.gap_paragraph
+
     return y

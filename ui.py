@@ -30,6 +30,7 @@ while running:
     md.display(pygame_events, mouse_x, mouse_y, mouse_pressed)
     screen.blit(shape_surf, pygame.Rect(0, 0, 564, 720))
     pygame.display.flip()
+    md.set_markdown(mdfile_path="test.md")
     clock.tick(60)
 
 pygame.quit()
