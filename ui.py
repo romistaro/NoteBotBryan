@@ -15,6 +15,7 @@ running = True
 # Creating and configuring the MarkdownRenderer.
 md = MarkdownRenderer()
 md.set_markdown(mdfile_path="test.md")
+md.set_scroll_step(19.4)
 # md.set_markdown_from_string(md_string)  # Alternatively directly from a string.
 shape_surf = pygame.Surface((564 - 90, 720 - 20), pygame.SRCALPHA)
 
