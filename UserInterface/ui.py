@@ -18,7 +18,7 @@ clock = pygame.time.Clock()
 running = True
 # Creating and configuring the MarkdownRenderer.
 md = MarkdownRenderer()
-md.set_markdown(mdfile_path=dir_path / "test.md")
+md.set_markdown(mdfile_path=dir_path / "output.md")
 md.set_scroll_step(19.35)
 magic_height = 702.36
 # md.set_markdown_from_string(md_string)  # Alternatively directly from a string.
@@ -104,7 +104,7 @@ while running:
     screen.blit(small_icon, (7, 10))
     screen.blit(rotated_pencil, new_rect)
     pygame.display.flip()
-    md.set_markdown(mdfile_path=dir_path / "test.md")
+    md.set_markdown(mdfile_path=dir_path / "output.md")
     frame_count += 1
     clock.tick(60)
 

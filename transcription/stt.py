@@ -1,25 +1,30 @@
 from openai import OpenAI
-from test import gptPrompt
+from pathlib import Path
 import os
+from test import bryan
 
+path = Path(os.path.dirname(os.path.realpath(__file__)))
 
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
-
-
 def stt(filename):
-    audio_file= open(filename, "rb")
+    audio_file = open(filename, "rb")
     transcript = client.audio.translations.create(
-    model="whisper-1",
-    file=audio_file
+        model="whisper-1",
+        file=audio_file
     )
     
-    gptPrompt(transcript.text)
+    bryan(transcript.text)
+    
+    with open(path/"transcription.txt", "a") as file:
+        file.write(transcript.text)
+        print(transcript.text)
     
     
     
-    with open("transcript.txt", "a") as file:
-        file.write(transcript.text + "\n")
+    
+    
+    
 
     
 

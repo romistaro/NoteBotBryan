@@ -1,5 +1,8 @@
 from openai import OpenAI
+from pathlib import Path
 import os
+
+path = Path(os.path.dirname(os.path.realpath(__file__)))
 
 def gpt_prompt(text, client, model="gpt-3.5-turbo"):
     completion = client.chat.completions.create(
@@ -14,9 +17,9 @@ api_key = os.environ.get("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key)
 modelName = 'ft:gpt-3.5-turbo-1106:personal::8gkyEzju'
 
-def gptPrompt(new_info):
-    old_md = open('output.md', 'r').read()
-    current_text = open('transcription.txt', 'r').read()
+def bryan(new_info):
+    old_md = open(path.parent/"UserInterface"/"output.md", 'r').read()
+    current_text = open(path/'transcription.txt', 'r').read()
 
     prompt = f"""
     CURRENT MARKDOWN: {old_md}
@@ -38,6 +41,6 @@ def gptPrompt(new_info):
         chunk_message = chunk.choices[0].delta.content  # extract the message
 
         # Append chunk message to a markdown file
-        with open("./output.md", "a") as file:
+        with open(path.parent/"UserInterface"/"output.md", "a") as file:
             file.write(str(chunk_message))
-            print(chunk_message, end="")
+            
