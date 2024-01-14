@@ -2,14 +2,14 @@ import pyaudio
 import wave
 from pydub import AudioSegment
 import threading
-from transcription.stt import stt
+from stt import stt
 
 # Set up parameters for recording
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
 CHUNK = 4096  # Buffer size
-RECORD_SECONDS = 5
+RECORD_SECONDS = 7
 FILENAMES = ['f1.wav', 'f2.wav']
 
 audio = pyaudio.PyAudio()

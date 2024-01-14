@@ -1,4 +1,5 @@
 from openai import OpenAI
+from test import gptPrompt
 import os
 
 
@@ -12,8 +13,15 @@ def stt(filename):
     model="whisper-1",
     file=audio_file
     )
+    
+    gptPrompt(transcript.text)
+    
+    
+    
+    with open("transcript.txt", "a") as file:
+        file.write(transcript.text + "\n")
 
-    print(transcript.text)
+    
 
 
 
