@@ -1,0 +1,33 @@
+def render_block(self, block: str, block_type: str, y: int) -> int:
+    """
+
+    :param self: MarkdownRenderer
+    :param str block: string of text
+    :param str block_type: type of the text (e.g. headers, ordered/unordered lists, blockquotes, code etc)
+    :param int y: y-coordinate to start rendering on
+    :returns: int y-coordinate after rendering of current block was finished
+    """
+
+    # Same background functionality
+    if block_type == "p":
+        y = self.render_text(block, block_type, y)
+    elif block_type == "blockquote":
+        y = self.render_text(block, block_type, y)
+
+    # specific functionalities
+    elif block_type == "codeblock":
+        y = self.render_codeblock(block, block_type, y)
+    elif block_type == "ol":
+        y = self.render_list(block, block_type, y, ordered=True)
+    elif block_type == "ul":
+        y = self.render_list(block, block_type, y, ordered=False)
+    elif block_type in ("h1", "h2", "h3"):
+        y = self.render_text(block, block_type, y)
+
+    elif block_type == "horizontal_line":
+        y = self.draw_horizontal_line(y)
+
+    else:
+        y = self.render_text(block, block_type, y)
+
+    return y
