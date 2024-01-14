@@ -15,11 +15,12 @@ running = True
 # Creating and configuring the MarkdownRenderer.
 md = MarkdownRenderer()
 md.set_markdown(mdfile_path="test.md")
-md.set_scroll_step(19.4)
+md.set_scroll_step(19.35)
+magic_height = 702.36
 # md.set_markdown_from_string(md_string)  # Alternatively directly from a string.
-shape_surf = pygame.Surface((564 - 90, 720 - 20), pygame.SRCALPHA)
+shape_surf = pygame.Surface((564 - 90, magic_height), pygame.SRCALPHA)
 
-md.set_area(surface=shape_surf, offset_x=85, offset_y=73, width=564-90, height=720-20)
+md.set_area(surface=shape_surf, offset_x=85, offset_y=73, width=564-90, height=magic_height)
 md.set_line_gaps(gap_line=0, gap_paragraph=19.35) #! IMPORTANT: make sure gap_line = 0, gap_paragraph = 19.35
 arial = pygame.font.SysFont('Arial', 24)
 
