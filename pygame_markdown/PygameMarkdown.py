@@ -236,7 +236,7 @@ class MarkdownRenderer:
         if self.pixel_first_showable == 0:
             # top-most setting, we set the entire length of the text
             # subtract offset (=y) and last gap (=gap_paragraph)
-            self.pixels_entire_length = line_position_y - self.y
+            self.pixels_entire_length = line_position_y
 
         # scrollbar
         self.draw_scrollbar()
