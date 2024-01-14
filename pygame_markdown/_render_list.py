@@ -1,3 +1,9 @@
+import re
+
+def remove_html_tags(text):
+    pattern = re.compile('<[^>]+>')
+    return pattern.sub('', text)
+
 def render_list(self, block: str, block_type: str, y: int, ordered: bool) -> int:
     """Renders the items of a list (ordered and unordered). Replaces the supplied numbers / hyphen with the correctly
     ordered numbers / unicode character for display.
@@ -45,6 +51,7 @@ def render_list(self, block: str, block_type: str, y: int, ordered: bool) -> int
             # create surface to get width of the word to identify necessary linebreaks
             word = word + " "
             word = word.replace("&gt;", ">").replace("&lt;", "<")
+            # word = remove_html_tags(word)
             if code_flag:
                 if position == "first" or position == "single":
                     x += self.code_padding

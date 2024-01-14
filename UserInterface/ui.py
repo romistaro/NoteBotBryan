@@ -21,7 +21,7 @@ clock = pygame.time.Clock()
 running = True
 # Creating and configuring the MarkdownRenderer.
 md = MarkdownRenderer()
-md.set_markdown(mdfile_path="../transcription/output.md")
+md.set_markdown(mdfile_path=dir_path/"../transcription/output.md")
 
 md.set_scroll_step(19.35)
 magic_height = 702.36
@@ -57,8 +57,8 @@ def rot_center(image, angle, x, y):
 
 pencil_x = 15
 
-open("../transcription/transcript.txt", "w").write("")
-open("../transcription/output.md", "w").write("")
+open(dir_path/"../transcription/transcript.txt", "w").write("")
+open(dir_path/"../transcription/output.md", "w").write("")
 
 
 to_expand=[]
@@ -132,7 +132,7 @@ while running:
     screen.blit(rotated_pencil, new_rect)
     pygame.display.flip()
     temp_md = md
-    md.set_markdown(mdfile_path="../transcription/output.md")
+    md.set_markdown(mdfile_path=dir_path/"../transcription/output.md")
     frame_count += 1
     clock.tick(60)
 

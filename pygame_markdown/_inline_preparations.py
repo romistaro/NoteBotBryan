@@ -35,17 +35,17 @@ def inline_formatting_preparation(
         bold_flag = True
         position = "first"
         word = word[8:]
-    if word[-9:] == "</strong>":
+    if "</strong>" in word:
         position = "last"
-        word = word[:-9]
+        word = word.replace("</strong>", "")
 
     # italic (one-word 'italic' is included)
     if word[:4] == "<em>":
         italic_flag = True
         position = "first"
         word = word[4:]
-    if word[-5:] == "</em>":
+    if "</em>" in word:
         position = "last"
-        word = word[:-5]
+        word = word.replace("</em>", "")
 
     return word, position, code_flag, bold_flag, italic_flag

@@ -1,11 +1,15 @@
 from openai import OpenAI
 from dotenv import load_dotenv
+from pathlib import Path
 
 import os
+
+dir_path = Path(os.path.dirname(os.path.realpath(__file__)))
+
 load_dotenv()
 def gpt_prompt(text, client, model="gpt-3.5-turbo"):
     completion = client.chat.completions.create(
-        model=model, 
+        model=model,
         messages=text,
         stream=True  # again, we set stream=True
     )
@@ -17,8 +21,8 @@ client = OpenAI(api_key=api_key)
 modelName = 'ft:gpt-3.5-turbo-1106:personal::8gtV0Nu9'
 
 def gptPrompt(new_info):
-    old_md = open('../transcription/output.md', 'r').read()
-    current_text = open('../transcription/transcript.txt', 'r').read()
+    old_md = open(dir_path/'../transcription/output.md', 'r').read()
+    current_text = open(dir_path/'../transcription/transcript.txt', 'r').read()
 
     prompt = f"""
     CURRENT MARKDOWN: {old_md}
@@ -41,6 +45,6 @@ def gptPrompt(new_info):
         if chunk_message is None:
             continue
         # Append chunk message to a markdown file
-        with open("../transcription/output.md", "a") as file:
+        with open(dir_path/"../transcription/output.md", "a") as file:
             file.write(str(chunk_message))
             print(chunk_message, end="")
