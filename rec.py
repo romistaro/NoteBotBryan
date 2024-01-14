@@ -1,8 +1,8 @@
 import pyaudio
 import wave
-from stt import transcribe
 from pydub import AudioSegment
 import threading
+from stt import stt
 
 # Set up parameters for recording
 FORMAT = pyaudio.paInt16
@@ -35,7 +35,7 @@ def record_and_transcribe(file_index):
     wave_file.close()
 
     # Transcribe
-    transcribe(filename)
+    stt(filename)
 
 try:
     file_index = 0

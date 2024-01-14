@@ -1,20 +1,15 @@
 from openai import OpenAI
-from dotenv import load_dotenv
 import os
 
-load_dotenv()
 
-key = os.environ.get("API_KEY")
-print(key)
-client = OpenAI(api_key=key)
+client = OpenAI(api_key="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")
 
-# audio_file= open("./tedx.mp3", "rb")
-# transcript = client.audio.translations.create(
-#   model="whisper-1",
-#   file=audio_file
-# )
-# print(transcript)
+audio_file= open("./f1.wav", "rb")
+transcript = client.audio.translations.create(
+  model="whisper-1",
+  file=audio_file
+)
+print(transcript)
 
-text = "Hear that? That's nothing. Which is what I, as a speaker at today's conference, have for you all. I have nothing, nada, zip, zilch, zippo. Nothing smart, nothing inspirational, nothing even remotely researched at all. I have absolutely nothing to say whatsoever. And yet, through my manner of speaking, I will make it seem like I do. Like what I am saying is brilliant, and maybe, just maybe, you will feel like you've learned something. Now, I'm going to get started with the opening. I'm going to make a lot of hand gestures. I'm going to do this with my right hand. I'm going to do this with my left. I'm going to adjust my glasses, and then I'm going to ask you all a question. By show of hands, how many of you all have been asked a question before? Okay, great, I'm seeing some hands. And again, I have nothing here. Now I'm going to react to that and act like I'm telling you a personal anecdote. Something to break the tension. Something to endear myself a little bit. Something kind of embarrassing. And you guys are going to make an aw sound. It's true. It really happened. And now I'm going to bring it to a broader point. I'm going to reel you back in. I'm going to make it intellectual. I'm going to bring it to this man right here. Now, what this man did was important, I'm sure. But I, for one, have no idea who he is. I simply Google imaged the word scientist. And now, you see, I'd like it to seem like I'm making points, building an argument, inspiring you to change your life. And in reality, this is just me buying time. Now, if you don't believe me, let's take a look at the numbers. This is a real thing that's happening right now. The number of talks that I'm giving is one. Interesting facts imparted thus far in said talk. Well, that's going to be a zero. My height in inches is 70.5. Note the .5 there. 2 times 6 equals 12. And then, interestingly enough, 6 times 2 also equals 12. That's math. 352 is a three-digit number. 1, 2, 3, 4, 5, and then almost immediately following that, we get 6, 7, 8, 9, 10. Now, to add more filler here, I'm going to give you a couple more numbers to consider. 18. 237. 5,601. 2.6 million. 4. 4. 24. Staggering. These are real numbers, all of them. And to follow that up, let's take a look at some graphs. Now, if you take a look at this pie chart, what you're going to see is that the majority far exceeds the minority. Everybody see that? Cool, isn't it? And let's take a look at this bar graph because it shows similarly irrelevant data. I'm doing this because I'd like to make it seem like I've done my homework. If you were, say, watching this on YouTube with the sound off, you might think, huh, okay. This guy knows what he's talking about. But I don't. I'm floundering, panicking. I've got nothing. I'm a total and utter phony. But you know what? I was offered a TED Talk. And damn it, I'm going to see it through. Now, if you take a look behind me, these are just words paired with vaguely thought-provoking stock photos. I'm going to point at them like I'm making use both of my time as well as your time. But in reality, I don't know what half of them mean. And now as these continue, I'm just going to start saying gibberish. Wagga-wa, gabba-gabba, turkey, mouth in a mouth, chip, trip, my dog Skip. Rip it and dip it, Richard. I'm an itty-bitty baby bopper, and I'm hungry in my tum-tum. Brad Pitt, Uma Thurman. Names, things, words, words, and more things. And see, it feels like it might make sense, doesn't it? Like maybe, just maybe, I'm building to some sort of satisfying conclusion. I mean, I'm gesticulating as though I am. I'm pacing. I'm growing in intensity. I'm taking off my glasses, which, by the way, are just frames. I wore them to look smart, even though my vision is perfect. And now I'm going to slow things down a little bit. I'm going to change the tone. I'm going to make it seem like I'm building to a moment. And what if I was? Amazing, isn't it? What can you do? I guess a roller coaster. You know, if there's one thing you take away from my talk, I'd like you to think about what you heard at the beginning, and I'd like you to think about what you hear now. Because it was nothing, and it's still nothing. Think about that. Or don't. That's fine. And now I'm going to stop talking. Thank you. Thank you. "
 
 

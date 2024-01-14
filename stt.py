@@ -1,25 +1,18 @@
-from google.cloud import speech
+from openai import OpenAI
+import os
 
-client = speech.SpeechClient.from_service_account_file("astral-sorter-411120-6accb763bded.json")
 
-def transcribe(f):
-    with open(f, 'rb') as audio_file:
-        mp3dat = audio_file.read()
-    
-    audio_file = speech.RecognitionAudio(content=mp3dat)
+client = OpenAI(api_key="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")
 
-    config = speech.RecognitionConfig(
-        sample_rate_hertz=44100,
-        enable_automatic_punctuation=True,
-        language_code='en-US'
+
+def stt(filename):
+    audio_file= open(filename, "rb")
+    transcript = client.audio.translations.create(
+    model="whisper-1",
+    file=audio_file
     )
 
-    response = client.recognize(config=config, audio=audio_file)
+    print(transcript.text)
 
-    # Open the text file in append mode
-    with open("transcription.txt", "a") as text_file:
-        for result in response.results:
-            # Extract the transcript from the first alternative
-            transcript = result.alternatives[0].transcript
-            # Write the transcript to the text file
-            text_file.write(transcript + "\n")
+
+
