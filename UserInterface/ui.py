@@ -1,3 +1,5 @@
+import random
+
 import pygame
 
 from pygame_markdown import MarkdownRenderer
@@ -27,14 +29,20 @@ arial = pygame.font.SysFont('Arial', 24)
 startText = arial.render('Start', True, (0,0,0))
 stopText = arial.render('Stop', True, (0,0,0))
 
+pencil = pygame.image.load('pencil.png')
+frame_count=0
 recording=False
 
 def hovering_start():
     return 100 <= mouse_x <= 100 + 384 and 17 <= mouse_y <= 17 + 50
 
 
-while running:
+def rot_center(image, angle, x, y):
+    rotated_image = pygame.transform.rotate(image, angle)
+    new_rect = rotated_image.get_rect(center=image.get_rect(center=(x, y)).center)
 
+    return rotated_image, new_rect
+while running:
 
     pygame_events = pygame.event.get()
     mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -56,13 +64,19 @@ while running:
     shade = 255-100*int(hovering_start())
     pygame.draw.rect(screen, (0,shade,0) if not recording else (shade,0,0), (100, 17, 384, 50), border_radius=25)
     screen.blit(startText if not recording else stopText, (100+172, 17+10))
+    rotated_pencil, new_rect = rot_center(pencil, 20, 15, 60)
     if recording:
-
         if pygame.time.get_ticks() % 1000 < 500:
             pygame.draw.circle(screen, (255,0,0), (100+384+30, 17+25), 15)
+        if frame_count%3==0:
+            angle = random.randint(-5, 5)
+            rotated_pencil, new_rect = rot_center(rotated_pencil, angle, 15, 60)
+
     screen.blit(small_icon, (7, 10))
+    screen.blit(rotated_pencil, new_rect)
     pygame.display.flip()
     md.set_markdown(mdfile_path="test.md")
+    frame_count+=1
     clock.tick(60)
 
 pygame.quit()
