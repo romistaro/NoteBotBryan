@@ -4,8 +4,9 @@ import pygame
 
 from pygame_markdown import MarkdownRenderer
 
+
 pygame.init()
-pygame.display.set_caption('ElbowPartner')
+pygame.display.set_caption('Bryan')
 icon=pygame.image.load('icon.png')
 # resize icon to 50x50 pixels
 small_icon = pygame.transform.smoothscale(icon, (60, 60))
@@ -24,10 +25,11 @@ shape_surf = pygame.Surface((564 - 90, magic_height), pygame.SRCALPHA)
 
 md.set_area(surface=shape_surf, offset_x=85, offset_y=73, width=564-90, height=magic_height)
 md.set_line_gaps(gap_line=0, gap_paragraph=19.35) #! IMPORTANT: make sure gap_line = 0, gap_paragraph = 19.35
-arial = pygame.font.SysFont('Arial', 24)
+arial = pygame.font.SysFont('Lato', 24)
+but_text_colour = (223, 229, 232)
 
-startText = arial.render('Start', True, (0,0,0))
-stopText = arial.render('Stop', True, (0,0,0))
+startText = arial.render('Start recording', True, but_text_colour)
+stopText = arial.render('Pause recording', True, but_text_colour)
 
 pencil = pygame.image.load('pencil.png')
 frame_count=0
@@ -42,8 +44,10 @@ def rot_center(image, angle, x, y):
     new_rect = rotated_image.get_rect(center=image.get_rect(center=(x, y)).center)
 
     return rotated_image, new_rect
-while running:
 
+pencil_x = 15
+while running:
+    clicked = False
     pygame_events = pygame.event.get()
     mouse_x, mouse_y = pygame.mouse.get_pos()
     mouse_pressed = pygame.mouse.get_pressed()
@@ -54,23 +58,38 @@ while running:
             running = False
         if event.type==pygame.MOUSEBUTTONDOWN:
             if hovering_start():
+                clicked=True
                 recording=not recording
                 print(recording)
 
     screen.blit(bg, (0, 0))
     md.display(pygame_events, mouse_x, mouse_y, mouse_pressed)
     screen.blit(shape_surf, pygame.Rect(0, 0, 564, 720))
+    button_colour = (17, 40, 60)
+    if hovering_start():
+        button_colour = tuple(max(0,x-10) for x in button_colour)
+    if clicked:
+        button_colour = tuple(max(0,x-20) for x in button_colour)
+    pygame.draw.rect(screen, button_colour, (100, 17, 384, 50), border_radius=25)
+    screen.blit(startText if not recording else stopText, (100+112, 17+10))
 
-    shade = 255-100*int(hovering_start())
-    pygame.draw.rect(screen, (0,shade,0) if not recording else (shade,0,0), (100, 17, 384, 50), border_radius=25)
-    screen.blit(startText if not recording else stopText, (100+172, 17+10))
-    rotated_pencil, new_rect = rot_center(pencil, 20, 15, 60)
+    if not recording:
+        # draw a play triangle to the left of the starttext
+        pygame.draw.polygon(screen, but_text_colour, ((100+50, 17+10), (100+50, 17+40), (100+80, 17+25)))
+    else:
+        # draw a pause sign to the left of the starttext
+        pygame.draw.rect(screen, but_text_colour, (100+50, 17+10, 10, 30))
+        pygame.draw.rect(screen, but_text_colour, (100+65, 17+10, 10, 30))
+    rotated_pencil, new_rect = rot_center(pencil, 20, pencil_x, 60)
     if recording:
         if pygame.time.get_ticks() % 1000 < 500:
-            pygame.draw.circle(screen, (255,0,0), (100+384+30, 17+25), 15)
-        if frame_count%3==0:
-            angle = random.randint(-5, 5)
-            rotated_pencil, new_rect = rot_center(rotated_pencil, angle, 15, 60)
+            pygame.draw.circle(screen, (242,77,61), (100+384+40, 17+25), 15)
+        if frame_count%5==0:
+            angle = random.randint(-30, 30)
+            rotated_pencil, new_rect = rot_center(rotated_pencil, angle, pencil_x, 60)
+            pencil_x += 1
+            if pencil_x > 40:
+                pencil_x = 15
 
     screen.blit(small_icon, (7, 10))
     screen.blit(rotated_pencil, new_rect)

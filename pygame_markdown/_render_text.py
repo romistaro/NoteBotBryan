@@ -70,6 +70,8 @@ def render_text(self, block: str, block_type: str, y: int) -> int:
 
         if x + surface.get_width() >= self.w:  # new line necessary
             y = y + self.gap_paragraph
+            if block_type in ["h1", "h2", "h3"]:
+                y += self.gap_paragraph
             x = start_of_line_x
 
         if self.is_visible(y) and self.is_visible(y + text_height):
