@@ -16,7 +16,7 @@ AI Assistant             |  Demonstration
 
 To run Bryan,
 1. `pip install -r requirements.txt`
-2. Run `ui.py` from the root directory
+2. `python3 -m UserInterface.ui`
 
 ## Requirements
 
