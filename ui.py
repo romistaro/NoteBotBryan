@@ -4,7 +4,10 @@ from pygame_markdown import MarkdownRenderer
 
 pygame.init()
 pygame.display.set_caption('ElbowPartner')
-pygame.display.set_icon(pygame.image.load('icon.png'))
+icon=pygame.image.load('icon.png')
+# resize icon to 50x50 pixels
+small_icon = pygame.transform.scale(icon, (60, 60))
+pygame.display.set_icon(icon)
 screen = pygame.display.set_mode((564, 720))
 bg = pygame.image.load("bg2.png")
 clock = pygame.time.Clock()
@@ -21,6 +24,7 @@ arial = pygame.font.SysFont('Arial', 24)
 
 startText = arial.render('Start', True, (0,0,0))
 stopText = arial.render('Stop', True, (0,0,0))
+
 recording=False
 
 def hovering_start():
@@ -53,7 +57,8 @@ while running:
     if recording:
 
         if pygame.time.get_ticks() % 1000 < 500:
-            pygame.draw.circle(screen, (255,0,0), (100+384+50, 17+25), 25)
+            pygame.draw.circle(screen, (255,0,0), (100+384+30, 17+25), 15)
+    screen.blit(small_icon, (10, 10))
     pygame.display.flip()
     md.set_markdown(mdfile_path="test.md")
     clock.tick(60)
