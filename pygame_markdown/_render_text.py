@@ -65,11 +65,7 @@ def render_text(self, block: str, block_type: str, y: int) -> int:
 
         text_height = surface.get_height()  # update for next line
 
-        if word.startswith("eli"):
-            print(x, surface.get_width(), self.x, self.w)
-
         if x + surface.get_width() >= self.w:  # new line necessary
-            print(word)
             y = y + self.gap_paragraph
             x = start_of_line_x
 

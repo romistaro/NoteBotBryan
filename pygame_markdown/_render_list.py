@@ -84,7 +84,7 @@ def render_list(self, block: str, block_type: str, y: int, ordered: bool) -> int
         if i == len(block.split("\n")) - 1:
             return y  # return without adding to the last line
 
-        y = y + prev_text_height + self.gap_line
+        y += self.gap_paragraph
         x = start_of_line_x
 
     return y
