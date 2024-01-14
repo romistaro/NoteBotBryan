@@ -8,6 +8,13 @@ def render_text(self, block: str, block_type: str, y: int) -> int:
     :returns: int - y-coordinate after rendering is finished
     """
 
+    # if y == self.y - self.pixel_first_showable and block_type in ("h1", "h2", "h3"):
+    #     y += self.gap_paragraph
+
+    H1_OFFSET = 3
+    H2_OFFSET = -7
+    H3_OFFSET = -16
+
     start_of_line_x = self.x
     if block_type == "blockquote":
         start_of_line_x += self.indentation_quote
@@ -27,12 +34,12 @@ def render_text(self, block: str, block_type: str, y: int) -> int:
     italic_flag = False
     position = None
 
-    if block_type in (
-        "h1",
-        "h2",
-        "h3",
-    ):  # insert additional gap in front of h1 or h2 headers
-        y += self.gap_line
+    if block_type == "h1":
+        y -= H1_OFFSET
+    elif block_type == "h2":
+        y -= H2_OFFSET
+    elif block_type == "h3":
+        y -= H3_OFFSET
 
     for word in block.split(" "):
 
@@ -61,18 +68,17 @@ def render_text(self, block: str, block_type: str, y: int) -> int:
 
         text_height = surface.get_height()  # update for next line
 
-        if not (x + surface.get_width() < self.x + self.w):  # new line necessary
-            y = y + text_height + self.gap_paragraph
+        if x + surface.get_width() >= self.w:  # new line necessary
+            y = y + self.gap_paragraph
             x = start_of_line_x
 
-        if self.is_visible(y) and self.is_visible(y + text_height):
-            if block_type == "blockquote":  # draw quote-rectangle in front of text
-                self.draw_quote_rect(
-                    y, y + self.get_surface(word, "blockquote").get_height()
-                )
+        if block_type == "blockquote":  # draw quote-rectangle in front of text
+            self.draw_quote_rect(
+                y, y + self.get_surface(word, "blockquote").get_height()
+            )
 
-            self.draw_code_background(code_flag, word, x, y, position)
-            self.screen.blit(surface, (x, y))
+        self.draw_code_background(code_flag, word, x, y, position)
+        self.screen.blit(surface, (x, y))
 
         # Update x for the next word
         x = x + surface.get_width()
@@ -89,15 +95,13 @@ def render_text(self, block: str, block_type: str, y: int) -> int:
         italic_flag = False if italic_flag and position == "last" else italic_flag
         position = "Middle" if position == "first" else position
 
-    # if block_type == "h1":
-    #     y = y + text_height*.65  # add an additional margin below h1 and h2 headers
-    #     # if block_type == "h1":  # insert subline below h1 headers
-    #     #     y = (
-    #     #         y + text_height * 0.5
-    #     #     )  # add an additional margin below h1 headers for the subheader line
-    #     #     y = self.draw_subheader_line(y)
-    # elif block_type == "h2":
-    #     y = y + text_height*.35
-    # elif block_type == "h3":
-    #     y = y + text_height*0
+    if block_type in {"h1", "h2", "h3"}:
+        if block_type == "h1":
+            y += H1_OFFSET
+        elif block_type == "h2":
+            y += H2_OFFSET
+        elif block_type == "h3":
+            y += H3_OFFSET
+        y += self.gap_paragraph
+
     return y
