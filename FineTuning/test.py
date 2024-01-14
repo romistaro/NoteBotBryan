@@ -33,7 +33,11 @@ collected_chunks = []
 for chunk in completion:
     collected_chunks.append(chunk)  # save the event response
     chunk_message = chunk.choices[0].delta.content  # extract the message
-    print(chunk_message, end="")
+
+    # Append chunk message to a markdown file
+    with open("./output.md", "a") as file:
+        file.write(str(chunk_message))
+        print(chunk_message, end="")
 
        
    

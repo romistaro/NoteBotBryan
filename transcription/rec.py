@@ -2,7 +2,7 @@ import pyaudio
 import wave
 from pydub import AudioSegment
 import threading
-from stt import stt
+from transcription.stt import stt
 
 # Set up parameters for recording
 FORMAT = pyaudio.paInt16
