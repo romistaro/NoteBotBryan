@@ -1,17 +1,17 @@
 from openai import OpenAI
-from dotenv import load_dotenv
 import os
+
 
 def gpt_prompt(text, client, model="gpt-3.5-turbo"):
     completion = client.chat.completions.create(
         model=model, 
         messages=text,
+        stream=True  # again, we set stream=True
     )
+    
+    return completion
 
-    return completion.choices[0].message.content
-
-load_dotenv()
-api_key = os.environ.get("API_KEY")
+api_key = os.environ.get("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key)
 modelName = 'ft:gpt-3.5-turbo-1106:personal::8gkyEzju'
 
@@ -27,4 +27,13 @@ message_data = [
 ]
 
 completion = gpt_prompt(message_data, client, modelName)
-print(completion)
+
+collected_chunks = []
+
+for chunk in completion:
+    collected_chunks.append(chunk)  # save the event response
+    chunk_message = chunk.choices[0].delta.content  # extract the message
+    print(chunk_message, end="")
+
+       
+   
