@@ -11,12 +11,12 @@ dir_path = Path(os.path.dirname(os.path.realpath(__file__)))
 
 pygame.init()
 pygame.display.set_caption("Bryan")
-icon = pygame.image.load(dir_path / "icon.png")
+icon = pygame.image.load(dir_path /"media/icon.png")
 # resize icon to 50x50 pixels
 small_icon = pygame.transform.smoothscale(icon, (60, 60))
 pygame.display.set_icon(icon)
 screen = pygame.display.set_mode((564, 720))
-bg = pygame.image.load(dir_path / "bg2.png")
+bg = pygame.image.load(dir_path /"media/bg2.png")
 clock = pygame.time.Clock()
 running = True
 # Creating and configuring the MarkdownRenderer.
@@ -40,7 +40,7 @@ but_text_colour = (223, 229, 232)
 startText = font40.render("Start recording", True, but_text_colour)
 stopText = font40.render("Pause recording", True, but_text_colour)
 
-pencil = pygame.image.load(dir_path / "pencil.png")
+pencil = pygame.image.load(dir_path /"media/pencil.png")
 frame_count = 0
 recording = False
 

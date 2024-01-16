@@ -1,3 +1,6 @@
 .env
+f1.wav
+f2.wav
 *~
+**/venv/
 **/__pycache__/
