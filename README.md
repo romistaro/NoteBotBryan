@@ -17,6 +17,7 @@ AI Assistant             |  Demonstration
 To run Bryan,
 1. `pip install -r requirements.txt`
 2. `python3 -m UserInterface.ui`
+3. Create `.env` in the root folder (./NoteBotBryan) and put in `OPENAI_API_KEY=your_api_key`
 
 ## Requirements
 
