@@ -1,5 +1,6 @@
 # NoteBotBryan
 
+$x_1x_2=\frac{c}{a}$
 Your friendly note taking assistant
 
 AI Assistant             |  Demonstration
