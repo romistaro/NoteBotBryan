@@ -4,7 +4,7 @@ Your friendly note taking assistant
 
 AI Assistant             |  Demonstration
 :-------------------------:|:-------------------------:
-![elbowLogo](https://github.com/romistaro/Elbowpartner/assets/62809012/03ce17da-8cae-4389-ad9e-a072bedd28d6)  |  ![demo](https://github.com/romistaro/NoteBotBryan/assets/62809012/937e170d-2a1c-487a-9379-0738c80baf0b)
+![elbowLogo](https://github.com/romistaro/Elbowpartner/assets/62809012/03ce17da-8cae-4389-ad9e-a072bedd28d6)  |  https://github.com/romistaro/NoteBotBryan/assets/62809012/330fb361-f218-4a04-89f1-bde31c86af69
 
 ## Table of Contents
 
