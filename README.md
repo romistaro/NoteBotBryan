@@ -31,5 +31,5 @@ List of dependencies and requirements needed to run the project.
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/romistaro/Elbowpartner.git
+git clone https://github.com/romistaro/notebotbryan.git
 ```
