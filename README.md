@@ -1,6 +1,6 @@
 # NoteBotBryan
 
-Your friendly note taking assistant
+Your friendly note taking assistant, [submitted to DeltaHacks X](https://devpost.com/software/bryan).
 
 AI Assistant             |  Demonstration
 :-------------------------:|:-------------------------:
